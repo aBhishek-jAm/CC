@@ -1,0 +1,26 @@
+cloud functions
+
+gcloud services enable cloudfunctions.googleapis.com
+gcloud services enable storage.googleapis.com
+
+mkdir gcs-trigger-function && cd gcs-trigger-function
+
+echo 'def handle_storage_event(event, context):
+    print(f"File: {event['"'"'name'"'"']}")
+    print(f"Bucket: {event['"'"'bucket'"'"']}")
+    print(f"Event type: {event['"'"'eventType'"'"']}")
+    # Add your processing logic here
+' > main.py
+
+gcloud functions deploy storage-trigger-function \
+    --runtime python39 \
+    --trigger-resource YOUR_BUCKET_NAME \
+    --trigger-event google.storage.object.finalize \
+    --entry-point handle_storage_event \
+    --region us-central1\
+    -- no-gen2
+
+echo "Test file" > test.txt
+gsutil cp test.txt gs://YOUR_BUCKET_NAME/
+
+gcloud functions logs read storage-trigger-function --region us-central1
