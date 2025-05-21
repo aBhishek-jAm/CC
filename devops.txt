@@ -1,0 +1,10 @@
+cd ~/desktop/dev               # Navigate to your project folder
+vi f1.txt                      # Create and edit the file
+git add f1.txt                  # Stage the changes
+git config --global user.name "abhishek-jam"   # Set Git username
+git config --global user.email "abhishekjamadar36@gmail.com"  # Set Git email
+git commit -m "Add f1.txt"      # Commit your changes
+git remote add np https://github.com/aBhishek-jAm/CC.git   # Add remote URL
+git remote -v                   # Verify remote URL
+git branch                      # Check your current branch (main or master)
+git push np master              # Push to GitHub (use 'main' if that's your branch)
